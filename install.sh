@@ -204,7 +204,7 @@ generate_dot_desktop_file() {
   create_file_if_not_exists "${desktop_file_path}"
 
   # Create or update the .desktop file
-  cat << "EOF" > "${desktop_file_path}"
+  cat << EOF > "${desktop_file_path}"
 # -*- coding: UTF-8 -*-
 [Desktop Entry]
 Type=Service
@@ -235,7 +235,7 @@ main() {
   download_icon
   generate_taildrop_script "${taildrop_script}"
   generate_dot_desktop_file "${taildrop_script}" "${desktop_file_path}"
-  sudo cp ${desktop_file_path} /usr/share/kservices5/${USER}-local-Tailscale.desktop
+  sudo cp ${desktop_file_path} /usr/share/kservices5/
   generate_taildrop_service
   reload_systemd_and_start_taildrop_service
   kbuildsycoca5
