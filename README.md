@@ -8,7 +8,9 @@ This bash script is designed to facilitate file transfers over the [Tailscale](h
 - [Tailscale](https://tailscale.com/download/linux) installed and configured on your system.
 
 ## Usage
-`curl -fsSL https://github.com/Stalloevan/Dolphin-Taildrop-Plugin/main/install.sh | bash`
+```bash
+curl -fsSL [https://github.com/Stalloevan/Dolphin-Taildrop-Plugin/main/install.sh](https://raw.githubusercontent.com/literally-anything/Dolphin-Taildrop-Plugin/main/install.sh) | bash
+```
 
 ## Features
 
