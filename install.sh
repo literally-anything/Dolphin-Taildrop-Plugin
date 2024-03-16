@@ -225,6 +225,8 @@ Name=Send via Taildrop
 Icon=${HOME}/.config/dolphin_service_menus_creator/tailscale.png
 Exec=${taildrop_script} %F
 EOF
+
+  make_executable "${desktop_file_path}"
 }
 
 # Main function
