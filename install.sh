@@ -75,6 +75,7 @@ EOF
 # Generates a script for sending files via Taildrop.
 generate_taildrop_script() {
   local taildrop_script=$1
+  local taildrop_exclude=$2
 
   create_file_if_not_exists "${taildrop_script}"
 
@@ -83,6 +84,7 @@ generate_taildrop_script() {
 
 # Simple wrapper around the tailscale CLI to send files to a device.
 main() {
+    local taildrop_exclude="${HOME}/.config/dolphin_service_menus_creator/taildrop_exclude.txt"
     # Get the status of all devices on tailnet
     status_output=$(tailscale status)
     
@@ -97,7 +99,9 @@ main() {
         friendly_name=$(echo "${line}" | awk '{print $2}')
     
         if [[ -n "${friendly_name}" ]]; then
-            name_list+=("${friendly_name}")
+            if ! grep -Fxq "${friendly_name}" ${taildrop_exclude}; then
+                name_list+=("${friendly_name}")
+            fi
         fi
     done <<< "${status_output}"
     
@@ -232,9 +236,11 @@ EOF
 # Main function
 main() {
   local taildrop_script="${HOME}/.config/dolphin_service_menus_creator/taildrop_script.sh"
+  local taildrop_exclude="${HOME}/.config/dolphin_service_menus_creator/taildrop_exclude.txt"
   local desktop_file_path="${HOME}/.local/share/kio/servicemenus/Taildrop.desktop"
 
   generate_taildrop_script "${taildrop_script}"
+  create_file_if_not_exists "${taildrop_exclude}"
   generate_dot_desktop_file "${taildrop_script}" "${desktop_file_path}"
   download_icon
   generate_taildrop_service
