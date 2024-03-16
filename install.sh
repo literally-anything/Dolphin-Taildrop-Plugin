@@ -23,7 +23,7 @@ make_executable() {
 
 # Downloads the Tailscale icon if it does not already exist in the specified path.
 download_icon() {
-  local icon_path="${HOME}/Themes/Icons/tailscale.png"
+  local icon_path="${HOME}/.config/dolphin_service_menus_creator/tailscale.png"
   if [[ ! -f ${icon_path}   ]]; then
     echo "Downloading Tailscale icon..."
     mkdir -p "$(dirname "${icon_path}")"
@@ -215,14 +215,14 @@ X-KDE-StartupNotify=false
 X-KDE-Priority=TopLevel
 X-KDE-Submenu=
 Name=Taildrop
-Icon=${HOME}/Themes/Icons/tailscale.png
+Icon=${HOME}/.config/dolphin_service_menus_creator/tailscale.png
 Exec=${taildrop_script} %F
 
 [Desktop Action default_action]
 X-KDE-Priority=TopLevel
 X-KDE-Submenu=
 Name=Send via Taildrop
-Icon=${HOME}/Themes/Icons/tailscale.png
+Icon=${HOME}/.config/dolphin_service_menus_creator/tailscale.png
 Exec=${taildrop_script} %F
 EOF
 }
@@ -232,9 +232,9 @@ main() {
   local taildrop_script="${HOME}/.config/dolphin_service_menus_creator/taildrop_script.sh"
   local desktop_file_path="${HOME}/.local/share/kio/servicemenus/Taildrop.desktop"
 
-  download_icon
   generate_taildrop_script "${taildrop_script}"
   generate_dot_desktop_file "${taildrop_script}" "${desktop_file_path}"
+  download_icon
   generate_taildrop_service
   reload_systemd_and_start_taildrop_service
   kbuildsycoca5
