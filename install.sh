@@ -204,7 +204,7 @@ generate_dot_desktop_file() {
   create_file_if_not_exists "${desktop_file_path}"
 
   # Create or update the .desktop file
-  cat << EOF > "${desktop_file_path}"
+  cat << "EOF" > "${desktop_file_path}"
 # -*- coding: UTF-8 -*-
 [Desktop Entry]
 Type=Service
