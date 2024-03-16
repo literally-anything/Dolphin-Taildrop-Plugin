@@ -154,7 +154,7 @@ main() {
                 rm -f "${tmp_archive}"
     
                 # Check to see if file was delivered
-                if ! tailscale ping -c 1 "${chosen_device}" &>/dev/null; ; then
+                if ! tailscale ping -c 1 "${chosen_device}" &>/dev/null ; then
                     kdialog --title 'Taildrop' --passivepopup "'${file}' folder not delivered" --icon "${HOME}/Themes/Icons/tailscale.png"
                     exit 1
                 fi
@@ -169,7 +169,7 @@ main() {
             list_names+="${file##*/}, "
     
                 # Check to see if file was delivered
-                if ! tailscale ping -c 1 "${chosen_device}" &>/dev/null; ; then
+                if ! tailscale ping -c 1 "${chosen_device}" &>/dev/null ; then
                     kdialog --title 'Taildrop' --passivepopup "'${file}' not delivered" --icon "${HOME}/Themes/Icons/tailscale.png"
                     exit 1
                 fi
