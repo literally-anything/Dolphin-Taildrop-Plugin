@@ -230,12 +230,11 @@ EOF
 # Main function
 main() {
   local taildrop_script="${HOME}/.config/dolphin_service_menus_creator/taildrop_script.sh"
-  local desktop_file_path="${HOME}/.local/share/kservices5/Taildrop.desktop"
+  local desktop_file_path="${HOME}/.local/share/kio/servicemenus/Taildrop.desktop"
 
   download_icon
   generate_taildrop_script "${taildrop_script}"
   generate_dot_desktop_file "${taildrop_script}" "${desktop_file_path}"
-  sudo cp ${desktop_file_path} /usr/share/kservices5/
   generate_taildrop_service
   reload_systemd_and_start_taildrop_service
   kbuildsycoca5
