@@ -235,7 +235,7 @@ main() {
   download_icon
   generate_taildrop_script "${taildrop_script}"
   generate_dot_desktop_file "${taildrop_script}" "${desktop_file_path}"
-  sudo ln -s ${HOME}/.local/share/kservices5/ /usr/share/kservices5/${USER}-local
+  sudo ln -s ${desktop_file_path} /usr/share/kservices5/${USER}-local-Tailscale.desktop
   generate_taildrop_service
   reload_systemd_and_start_taildrop_service
   kbuildsycoca5
