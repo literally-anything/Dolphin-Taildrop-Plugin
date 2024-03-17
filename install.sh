@@ -69,7 +69,7 @@ tailscale file get --loop --verbose --conflict=rename "${HOME}/Downloads" | whil
     fi
 done
 EOF
-  make_executable "${script_dir}/tailreceive.bash"
+  make_executable "${HOME}/.config/dolphin_service_menus_creator/tailreceive.bash"
 
   cat << 'EOF' > "${HOME}/.config/dolphin_service_menus_creator/tailreceive.py"
 import os
