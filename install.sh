@@ -90,7 +90,7 @@ except:
     pass
 
 proc = subprocess.Popen(
-    ['notify-send', '-a', 'TailDrop', 'Recieved', name, '-i', f'"{path}"', '-A', 'Show in Dolphin'],
+    ['notify-send', '-a', 'TailDrop', 'Recieved', name, '-i', f'\"{path}\"', '-A', 'Show in Dolphin'],
     stdout=subprocess.PIPE
 )
 stdout = proc.communicate()[0].strip()
