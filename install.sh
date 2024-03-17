@@ -104,7 +104,7 @@ Description=File Receiver Service for Taildrop
 
 [Service]
 UMask=0077
-ExecStart=
+ExecStart=${HOME}/.config/dolphin_service_menus_creator/tailreceive.bash
 
 [Install]
 WantedBy=default.target
