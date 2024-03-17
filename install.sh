@@ -58,6 +58,45 @@ generate_taildrop_service() {
 generate_tailreceive_service() {
     local systemd_dir=$1
     local taildrop_dir=$2
+    
+  cat << 'EOF' > "${HOME}/.config/dolphin_service_menus_creator/tailreceive.bash"
+#!/usr/bin/env bash
+
+tailscale file get --loop --verbose --conflict=rename "${HOME}/Downloads" | while IFS= read -r line; do
+    echo "$line"
+    if echo "$line" | grep -q "wrote"; then
+        python3 ${HOME}/.config/dolphin_service_menus_creator/tailreceive.py "$line"
+    fi
+done
+EOF
+  make_executable "${script_dir}/tailreceive.bash"
+
+  cat << 'EOF' > "${HOME}/.config/dolphin_service_menus_creator/tailreceive.py"
+import os
+import sys
+import mimetypes
+import subprocess
+
+line = sys.argv[-1]
+line = line[line.find(' ') + 1:]
+line = line[:-line[::-1].find(' ') - 1]
+line = line[:-line[::-1].find(' ') - 1]
+name, path = line.split(' as ')
+
+try:
+    if not mimetypes.guess_type(path)[0].startswith('image/'):
+        path = '${HOME}/.config/dolphin_service_menus_creator/tailscale.png'
+except:
+    pass
+
+proc = subprocess.Popen(
+    ['notify-send', '-a', 'TailDrop', 'Recieved', name, '-i', f'"{path}"', '-A', 'Show in Dolphin'],
+    stdout=subprocess.PIPE
+)
+stdout = proc.communicate()[0].strip()
+if stdout != b'':
+    os.system('kde-open ${HOME}/Downloads &')
+EOF
 
   cat << EOF > "${systemd_dir}/tailreceive.service"
 [Unit]
@@ -65,7 +104,7 @@ Description=File Receiver Service for Taildrop
 
 [Service]
 UMask=0077
-ExecStart=tailscale file get --loop --verbose --conflict=rename "${taildrop_dir}"
+ExecStart=
 
 [Install]
 WantedBy=default.target
